@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Mia's Healthy Day Lab · Chapter 1 · Science Grade 3</title>
+<link rel="icon" href="data:,">
+<style>
+  :root{
+    --col:#E07B26; --deep:#9C4A08; --tint:#FCF0E1;
+    --cream:#FFF7E0; --amber:#E8A020; --magenta:#9C4A08;
+    --sky:var(--tint); --ink:#1F2430; --teal:var(--col); --teal-dark:var(--deep);
+    --gold:var(--amber); --green:#3E9B4F; --green-dark:#2F7D3E;
+    --card-shadow:0 10px 24px rgba(156,74,8,.16);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  [hidden]{display:none !important;}
+  html,body{height:100%;}
+  body{
+    font-family:"Comic Neue","Baloo 2","Comic Sans MS","Chalkboard SE","Segoe UI Rounded",ui-rounded,system-ui,sans-serif;
+    background:linear-gradient(180deg,#FCF0E1 0%,#F6DFC2 100%);
+    color:var(--ink); touch-action:manipulation; overflow-x:hidden;
+    display:flex; flex-direction:column; align-items:center; min-height:100dvh;
+  }
+  body::before, body::after{
+    content:""; position:fixed; left:0; right:0; height:14px; z-index:5; pointer-events:none;
+    background-image:
+      radial-gradient(circle at 10px 7px, #E07B26 4.5px, transparent 5px),
+      radial-gradient(circle at 34px 7px, #E8A020 4.5px, transparent 5px),
+      radial-gradient(circle at 58px 7px, #9C4A08 4.5px, transparent 5px);
+    background-size:72px 14px; background-repeat:repeat-x;
+  }
+  body::before{top:0;} body::after{bottom:0;}
+  .bg-hills,.bg-grass{position:fixed; left:-6%; width:112%; z-index:-2; pointer-events:none;}
+  .bg-hills{bottom:5vh; height:30vh; opacity:.5; animation:drift1 26s ease-in-out infinite alternate;}
+  .bg-grass{bottom:-4px; height:13vh; z-index:-1; opacity:.75; animation:drift2 19s ease-in-out infinite alternate;}
+  @keyframes drift1{from{transform:translateX(-10px)}to{transform:translateX(12px)}}
+  @keyframes drift2{from{transform:translateX(12px)}to{transform:translateX(-12px)}}
+  .petal{position:fixed; top:-4vh; z-index:-1; pointer-events:none; border-radius:62% 38% 62% 38%; opacity:.8; animation:petalfall linear infinite;}
+  @keyframes petalfall{0%{transform:translate(0,-4vh) rotate(0deg);}100%{transform:translate(7vw,108vh) rotate(320deg);}}
+  .topbar{width:100%; max-width:560px; display:flex; align-items:center; justify-content:space-between; padding:16px 14px 4px; gap:8px;}
+  .home-btn{text-decoration:none; background:#fff; color:var(--deep); font-weight:800; font-size:15px; border:3px solid #EDA45C; border-radius:999px; padding:7px 14px; box-shadow:0 3px 0 #EDA45C;}
+  .home-btn:active{transform:translateY(2px); box-shadow:none;}
+  .unit-chip{background:#FCF0E1; color:var(--deep); font-weight:800; font-size:14px; border-radius:999px; padding:8px 12px; text-align:center; line-height:1.15;}
+  .scorebox{display:flex; align-items:center; gap:5px; background:#fff; border:3px solid #FFE1A1; border-radius:999px; padding:6px 13px 6px 9px; font-size:17px; font-weight:800; color:#B97A0B; box-shadow:0 3px 0 #FFE1A1; min-width:104px; justify-content:center;}
+  .scorebox svg{width:24px;height:24px;flex:none;}
+  .scorebox.bump{animation:bump .45s ease;}
+  @keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.18) rotate(-3deg)}100%{transform:scale(1)}}
+  .toggles{width:100%; max-width:560px; display:flex; gap:8px; justify-content:flex-end; padding:6px 14px 0;}
+  .tgl{border:3px solid #F6D3AC; background:#fff; border-radius:999px; padding:5px 13px; cursor:pointer; font-family:inherit; font-weight:800; font-size:13.5px; color:var(--ink); box-shadow:0 3px 0 #F6D3AC; transition:transform .12s, box-shadow .12s, opacity .2s; min-height:40px;}
+  .tgl:active{transform:translateY(2px); box-shadow:none;}
+  .tgl.off{opacity:.5; filter:grayscale(.8);}
+  .partline{margin-top:8px; background:#fff; border:3px solid #EDA45C; color:var(--deep); font-weight:800; font-size:14.5px; border-radius:999px; padding:5px 16px; box-shadow:0 3px 0 #EDA45C;}
+  .dock{position:relative; width:100%; max-width:560px; display:flex; align-items:flex-end; gap:4px; padding:4px 14px 0; cursor:pointer;}
+  .mascot{width:80px; height:80px; flex:none; object-fit:cover; border-radius:50%; border:4px solid var(--gold); background:#fff; transform-origin:50% 100%; pointer-events:none; animation:breathe 3.2s ease-in-out infinite; filter:drop-shadow(0 6px 6px rgba(156,74,8,.22));}
+  @keyframes breathe{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-3px) scale(1.015,.99)}}
+  .mascot.cheer{animation:cheer .62s ease 2;}
+  @keyframes cheer{0%{transform:translateY(0)}35%{transform:translateY(-18px) rotate(-3deg) scale(1.05)}70%{transform:translateY(0) rotate(2deg)}100%{transform:translateY(0)}}
+  .mascot.encourage{animation:encourage .7s ease;}
+  @keyframes encourage{0%{transform:rotate(0)}30%{transform:rotate(-5deg) translateY(-2px)}65%{transform:rotate(4deg)}100%{transform:rotate(0)}}
+  .mascot-wrap{position:relative; width:80px; height:80px; flex:none;}
+  .dock .mascot{width:100%; height:100%;}
+  @media (max-height:660px){ .dock .mascot-wrap{width:64px; height:64px;} }
+  .mouth{position:absolute; left:49%; top:66%; width:10%; height:8%; background:#4A2C20; border-radius:50%; opacity:0; pointer-events:none; transform:scaleY(.18); transform-origin:center; transition:opacity .15s;}
+  .mouth::after{content:""; position:absolute; left:20%; right:20%; bottom:6%; height:38%; background:#E88CA0; border-radius:50%;}
+  .mascot-wrap.speaking .mouth{opacity:1; animation:mouthTalk .32s ease-in-out infinite alternate;}
+  @keyframes mouthTalk{from{transform:scaleY(.18)} to{transform:scaleY(1)}}
+  .mascot-wrap[data-emotion="praise"] .mouth{width:13%; left:47.5%;}
+  .mascot-wrap[data-emotion="retry"] .mouth{animation-duration:.52s;}
+  .mascot-wrap[data-emotion="story"] .mouth{animation-duration:.42s;}
+  .mascot-wrap.speaking{filter:drop-shadow(0 0 9px rgba(245,166,35,.55));}
+  .mascot-wrap.pulse .mascot{animation:miapulse .26s ease;}
+  @keyframes miapulse{40%{transform:scale(1.07) translateY(-2px)}}
+  .mascot-wrap.pointing .mascot{animation:pointlean 1s ease-in-out infinite;}
+  @keyframes pointlean{0%,100%{transform:translateX(0) rotate(0)}50%{transform:translateX(4px) rotate(2.5deg)}}
+  .thumb-pop{position:absolute; right:-18px; top:-16px; font-size:34px; z-index:3; opacity:0; pointer-events:none;}
+  .thumb-pop.pop{animation:thumbpop .9s ease;}
+  @keyframes thumbpop{0%{opacity:0; transform:scale(.3) rotate(-14deg)}30%{opacity:1; transform:scale(1.25) rotate(4deg)}70%{opacity:1} 100%{opacity:0; transform:scale(1) translateY(-8px)}}
+  .bubble{flex:1; position:relative; margin:0 0 12px 6px; background:#FCF0E1; border:3px solid #EDA45C; color:var(--deep); font-size:clamp(20px,5.8vw,26px); font-weight:800; text-align:center; border-radius:22px; padding:10px 16px; line-height:1.25; box-shadow:0 4px 10px rgba(156,74,8,.12);}
+  .bubble::before{content:""; position:absolute; left:-13px; bottom:14px; width:20px; height:20px; background:#FCF0E1; border-left:3px solid #EDA45C; border-bottom:3px solid #EDA45C; transform:rotate(45deg); border-bottom-left-radius:6px;}
+  .praise{min-height:32px; text-align:center; font-size:clamp(19px,5.4vw,25px); font-weight:800; color:#9C4A08; padding:2px 10px 0; opacity:0; transform:scale(.8); transition:all .25s;}
+  .praise.show{opacity:1; transform:scale(1);}
+  #titleView{width:100%; display:flex; flex-direction:column; align-items:center;}
+  .story-wrap{width:100%; max-width:560px; display:flex; gap:10px; align-items:flex-start; padding:8px 12px 0;}
+  .story-mia{width:92px; flex:none; border-radius:20px; border:4px solid #fff; background:#FFF7E0; box-shadow:var(--card-shadow); display:block; transform-origin:50% 100%;}
+  .story-card{flex:1; min-width:0; background:#FCF0E1; border:4px solid var(--teal); border-radius:26px; padding:16px 16px 14px; box-shadow:var(--card-shadow); text-align:center;}
+  .own-badge{display:inline-block; background:var(--amber); color:#5C3A00; font-weight:800; font-size:13.5px; letter-spacing:1.2px; border-radius:999px; padding:7px 18px; box-shadow:0 3px 0 #B97A0B; margin-bottom:10px;}
+  .story-title{font-size:clamp(25px,6.8vw,33px); font-weight:800; color:var(--deep); text-align:center; line-height:1.15; margin-bottom:8px;}
+  .story-sub{font-size:clamp(19px,5.4vw,23px); font-weight:800; color:#B97A0B; text-align:center; margin-bottom:8px;}
+  .intro-text{font-size:clamp(17.5px,5vw,21px); font-weight:700; text-align:center; color:#1F2430; line-height:1.35;}
+  .play-btn{margin:14px auto 6px; background:var(--teal); color:#fff; border:none; cursor:pointer; font-family:inherit; font-size:clamp(22px,6vw,27px); font-weight:800; border-radius:999px; padding:16px 38px; min-height:60px; box-shadow:0 7px 0 var(--teal-dark); transition:transform .12s, box-shadow .12s, opacity .2s; animation:playglow 1.6s ease-in-out infinite;}
+  @keyframes playglow{0%,100%{box-shadow:0 7px 0 var(--teal-dark), 0 0 0 0 rgba(246,184,28,0);}50%{box-shadow:0 7px 0 var(--teal-dark), 0 0 0 13px rgba(246,184,28,.38);}}
+  .play-btn:active{transform:translateY(5px); box-shadow:0 2px 0 var(--teal-dark);}
+  .play-btn.waiting{animation:none; opacity:.55; filter:saturate(.55);}
+  .play-btn:disabled{cursor:default;}
+  .station-map{width:100%; max-width:560px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap; padding:10px 12px 0;}
+  .st-chip{background:#fff; border:3px solid #F6D3AC; color:var(--deep); font-weight:800; font-size:14.5px; border-radius:999px; padding:6px 13px; box-shadow:0 3px 0 #F6D3AC;}
+  .st-chip.now{border-color:var(--teal); background:var(--tint);}
+  .st-chip.done{border-color:var(--green); background:#EAF7EE; color:var(--green-dark); box-shadow:0 3px 0 var(--green-dark);}
+  .lab-view{width:100%; display:flex; flex-direction:column; align-items:center;}
+  .lab-card{position:relative; width:calc(100% - 24px); max-width:536px; margin:8px auto 4px; background:#fff; border:4px solid var(--teal); border-radius:24px; padding:16px 12px 18px; box-shadow:var(--card-shadow); text-align:center;}
+  .station-head{font-size:clamp(21px,6vw,26px); font-weight:800; color:var(--deep); line-height:1.2; margin-bottom:4px;}
+  .scene{width:100%; max-width:430px; margin:2px auto 0;}
+  .scene svg{width:100%; height:auto; display:block;}
+  .scene-cap{font-size:16px; font-weight:800; color:#A07B4F; margin-top:2px; line-height:1.3;}
+  .act-row{display:flex; flex-direction:column; align-items:center; margin-top:8px;}
+  .act-btn{background:var(--teal); color:#fff; border:none; cursor:pointer; font-family:inherit; font-size:clamp(20px,5.6vw,24px); font-weight:800; border-radius:999px; padding:15px 34px; min-height:58px; box-shadow:0 7px 0 var(--teal-dark); transition:transform .12s, box-shadow .12s, opacity .2s;}
+  .act-btn:active{transform:translateY(5px); box-shadow:0 2px 0 var(--teal-dark);}
+  .act-btn.waiting{opacity:.55; filter:saturate(.55);}
+  .act-btn:disabled{cursor:default; opacity:.6;}
+  .next-row{display:flex; justify-content:center; margin-top:14px;}
+  .burst-star{position:absolute; pointer-events:none; z-index:6; animation:burst .85s ease-out forwards;}
+  @keyframes burst{0%{transform:translate(0,0) scale(.4) rotate(0deg); opacity:1;}100%{transform:translate(var(--dx),var(--dy)) scale(1.15) rotate(160deg); opacity:0;}}
+  .big-row{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:12px;}
+  .big-choice{flex:1; min-width:150px; min-height:58px; border-radius:20px; border:4px solid #EDA45C; background:#FCF0E1; color:var(--deep); font-family:inherit; font-size:19px; font-weight:800; padding:14px 10px; cursor:pointer; box-shadow:0 5px 0 #EDA45C;}
+  .big-choice:active{transform:translateY(3px); box-shadow:none;}
+  .big-choice.wrong{animation:wobble .45s ease;}
+  .big-choice.right{background:#BDEBC4; border-color:var(--green); box-shadow:0 5px 0 var(--green-dark);}
+  @keyframes wobble{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}45%{transform:translateX(6px)}70%{transform:translateX(-4px)}90%{transform:translateX(2px)}}
+  @keyframes rightpop{0%{transform:scale(1)}40%{transform:scale(1.1) rotate(-2deg)}100%{transform:scale(1)}}
+  .step-btn{min-height:58px; min-width:120px; border-radius:18px; border:4px solid #F6D3AC; background:#FFFDF6; font-family:inherit; font-size:19px; font-weight:800; color:var(--ink); padding:10px 14px; cursor:pointer; box-shadow:0 5px 0 #F6D3AC;}
+  .step-btn:disabled{opacity:.45; cursor:default;}
+  .step-btn.done{background:#EAF7EE; border-color:var(--green); box-shadow:0 5px 0 var(--green-dark);}
+  .count-line{font-size:17px; font-weight:800; color:var(--deep); margin-top:8px;}
+  .habit-pic{width:100%; max-width:300px; margin:6px auto 0;}
+  .habit-pic svg{width:100%; height:auto; display:block;}
+  .habit-label{font-size:19px; font-weight:800; color:var(--deep); margin-top:6px; line-height:1.3;}
+  .mats{display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin-top:12px;}
+  .mat-btn{min-height:86px; border-radius:18px; border:4px dashed #EDA45C; background:#FFFDF6; font-family:inherit; cursor:pointer; padding:8px 4px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;}
+  .mat-btn .mat-name{font-size:16.5px; font-weight:800; color:var(--deep); line-height:1.1;}
+  .mat-btn .mat-job{font-size:12.5px; font-weight:700; color:#4E6E73; line-height:1.15;}
+  .mat-btn .mat-foods{font-size:15px; font-weight:800; color:var(--green-dark); min-height:20px; line-height:1.2;}
+  .mat-btn.wrong{animation:wobble .45s ease;}
+  .mat-btn.got{border-style:solid; border-color:var(--green); background:#EAF7EE;}
+  .food-stage{min-height:120px; display:flex; align-items:center; justify-content:center; margin-top:8px;}
+  .food-big{border:4px solid #FFE1A1; background:#FFF7E0; border-radius:22px; padding:10px 18px; font-family:inherit; cursor:pointer; box-shadow:0 5px 0 #FFE1A1; display:flex; flex-direction:column; align-items:center; gap:2px; min-height:104px; min-width:150px;}
+  .food-big svg{width:84px; height:60px;}
+  .food-big span{font-size:20px; font-weight:800; color:var(--ink);}
+  .food-big.fly{animation:foodfly .6s ease;}
+  @keyframes foodfly{0%{transform:scale(1);}50%{transform:scale(1.12) translateY(-10px);}100%{transform:scale(1);}}
+  .plate-zones{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px;}
+  .zone{min-height:96px; border-radius:16px; border:3px dashed #EDA45C; background:#FFFDF6; padding:8px 4px; text-align:center;}
+  .zone .zone-ico{font-size:26px;}
+  .zone .zone-items{font-size:15px; font-weight:800; color:var(--deep); line-height:1.35; min-height:22px;}
+  .zone.full{border-style:solid; border-color:var(--green); background:#EAF7EE;}
+  .plate-wrap.sparkle .zone{animation:rightpop .6s ease;}
+  .tray-foods{display:flex; flex-wrap:wrap; gap:9px; justify-content:center; margin-top:12px;}
+  .tray-food{min-height:84px; min-width:96px; border-radius:18px; border:4px solid #F6D3AC; background:#fff; font-family:inherit; cursor:pointer; padding:6px 8px; display:flex; flex-direction:column; align-items:center; gap:2px; box-shadow:0 4px 0 #F6D3AC;}
+  .tray-food svg{width:56px; height:42px; pointer-events:none;}
+  .tray-food span{font-size:16.5px; font-weight:800; color:var(--ink);}
+  .tray-food:disabled{opacity:.35; cursor:default;}
+  .tray-food.hop{animation:foodfly .55s ease;}
+  .plate-choice{flex:1; min-width:150px; border-radius:20px; border:4px solid #F6D3AC; background:#FFFDF6; font-family:inherit; cursor:pointer; padding:12px 8px; box-shadow:0 5px 0 #F6D3AC;}
+  .plate-choice svg{width:100%; max-width:150px; height:auto; display:block; margin:0 auto;}
+  .plate-choice span{display:block; font-size:18px; font-weight:800; color:var(--deep); margin-top:6px;}
+  .plate-choice.wrong{animation:wobble .45s ease;}
+  .plate-choice.right{border-color:var(--green); background:#EAF7EE; box-shadow:0 5px 0 var(--green-dark);}
+  .stage-window{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:10px;}
+  .stage-slot{min-height:104px; border-radius:16px; border:3px dashed #EDA45C; background:#FFFDF6; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; padding:6px 2px;}
+  .stage-slot .qmark{font-size:30px; font-weight:800; color:#EDA45C;}
+  .stage-slot svg{width:56px; height:48px;}
+  .stage-slot .slot-name{font-size:13.5px; font-weight:800; color:var(--deep); line-height:1.1; text-align:center;}
+  .stage-slot.filled{border-style:solid; border-color:var(--green); background:#EAF7EE; animation:rightpop .5s ease;}
+  .stage-slot.flutter svg{animation:flutter .5s ease-in-out infinite alternate;}
+  @keyframes flutter{from{transform:scaleX(1);}to{transform:scaleX(.72);}}
+  .stage-slot.hop{animation:hop .6s ease 3;}
+  @keyframes hop{0%,100%{transform:translateY(0);}40%{transform:translateY(-14px);}}
+  .cycle-cards{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:12px;}
+  .cycle-card{min-height:104px; border-radius:18px; border:4px solid #F6D3AC; background:#fff; font-family:inherit; cursor:pointer; padding:8px 6px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; box-shadow:0 4px 0 #F6D3AC;}
+  .cycle-card svg{width:64px; height:52px; pointer-events:none;}
+  .cycle-card span{font-size:17px; font-weight:800; color:var(--ink); line-height:1.1;}
+  .cycle-card.wrong{animation:wobble .45s ease;}
+  .cycle-card.used{visibility:hidden;}
+  .overlay{position:fixed; inset:0; z-index:20; display:flex; flex-direction:column; align-items:center; justify-content:center; background:linear-gradient(180deg,#FCF0E1 0%,#F6DFC2 100%); padding:24px 18px; text-align:center; overflow-y:auto;}
+  .overlay[hidden]{display:none;}
+  .overlay h1{font-size:clamp(27px,7.4vw,38px); font-weight:800; line-height:1.15; color:var(--deep);}
+  .overlay p{font-size:16px; font-weight:700; color:#7A97A5; margin-top:10px; max-width:420px; line-height:1.45;}
+  .overlay .game-name{background:#fff; border:3px solid #FFE1A1; color:#B97A0B; border-radius:999px; font-weight:800; font-size:17px; padding:7px 18px; margin-bottom:14px; box-shadow:0 3px 0 #FFE1A1;}
+  .big-btn{margin-top:20px; background:var(--teal); color:#fff; border:none; cursor:pointer; font-family:inherit; font-size:26px; font-weight:800; border-radius:999px; padding:16px 44px; min-height:60px; box-shadow:0 7px 0 var(--teal-dark); transition:transform .12s, box-shadow .12s;}
+  .big-btn:active{transform:translateY(5px); box-shadow:0 2px 0 var(--teal-dark);}
+  .mascot-dance{width:118px; height:118px; object-fit:cover; border-radius:50%; border:5px solid var(--gold); margin-top:8px; transform-origin:50% 100%; animation:dance .8s ease-in-out infinite; filter:drop-shadow(0 7px 7px rgba(156,74,8,.25));}
+  @keyframes dance{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-11px) scale(1.03)}}
+  .moral-pill{background:var(--teal); color:#fff; border-radius:999px; padding:10px 22px; font-weight:800; font-size:17.5px; margin-top:12px; box-shadow:0 4px 0 var(--teal-dark); line-height:1.25; display:inline-block;}
+  .big-score{font-size:clamp(30px,8.4vw,44px); font-weight:800; color:#B97A0B; margin-top:10px; line-height:1.1;}
+  .fall-star{position:fixed; top:-46px; z-index:30; pointer-events:none; animation:fall linear forwards;}
+  @keyframes fall{to{transform:translateY(108dvh) rotate(320deg);}}
+  .confetti{position:fixed; top:-22px; z-index:30; pointer-events:none; border-radius:2px; animation:confall linear forwards;}
+  @keyframes confall{to{transform:translateY(108dvh) rotate(560deg);}}
+  .credit{font-size:12.5px; font-weight:700; color:#6E97A0; padding:0 10px 16px; text-align:center; margin-top:auto;}
+  @media (max-width:400px){ .story-mia{width:76px;} .mat-btn .mat-name{font-size:14.5px;} }
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:.01s !important; transition-duration:.01s !important;} }
+
+
+  /* Grade 3: extra-big touch targets for 8-9 year olds */
+  .act-btn{min-height:62px;}
+  .big-choice{min-height:64px;}
+  .step-btn{min-height:62px;}
+  .g3row{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:12px;}
+
+  .germ-dot{transition:transform .35s, opacity .35s; transform-box:fill-box; transform-origin:center;}
+  .germ-dot.popped{transform:scale(0); opacity:0;}
+  .soap-bub{opacity:0; transition:opacity .5s;}
+  .soap-bub.on{opacity:1;}
+  .water-stream{opacity:0; transition:opacity .4s;}
+  .water-stream.on{opacity:1;}
+  .sparkle-star{opacity:0;}
+  .sparkling .sparkle-star{animation:spark .9s ease infinite alternate;}
+  @keyframes spark{from{opacity:.2; transform:scale(.7);}to{opacity:1; transform:scale(1.25);}}
+
+</style>
+</head>
+<body>
+  <svg class="bg-hills" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true"><path d="M0,190 C240,110 420,240 720,190 C1020,140 1200,230 1440,170 L1440,320 L0,320 Z" fill="#FCF0E1"/><path d="M0,250 C260,190 520,290 820,250 C1100,215 1280,280 1440,240 L1440,320 L0,320 Z" fill="#F6D3AC" opacity=".7"/></svg>
+  <svg class="bg-grass" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0,70 C200,40 380,95 620,70 C860,45 1100,90 1440,60 L1440,120 L0,120 Z" fill="#EDA45C"/></svg>
+  <div id="petals" aria-hidden="true"></div>
+
+  <div class="topbar">
+    <a class="home-btn" href="c1.html">&#8592; Ch 1 Game</a>
+    <div class="unit-chip">Chapter 1 &middot; Healthy Habits, Strong Body</div>
+    <div class="scorebox" id="scoreBox" aria-label="Stars you earned">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6 L63 37 L96 39 L70 60 L79 93 L50 74 L21 93 L30 60 L4 39 L37 37 Z" fill="#FFC93C" stroke="#E8A20C" stroke-width="5" stroke-linejoin="round"/></svg>
+      <span>Stars: <span id="scoreCount">0</span>/3</span>
+    </div>
+  </div>
+
+  <div class="toggles">
+    <button class="tgl" id="musicBtn" aria-pressed="true">🎵 Music</button>
+    <button class="tgl" id="voiceBtn" aria-pressed="true">🗣️ Voice</button>
+  </div>
+
+  <div class="partline" id="partLine">Part 1 &middot; Healthy Body, Growing Life</div>
+
+  <div class="station-map" id="stationMap">
+    <span class="st-chip" id="chip1">☆ 1 · Wash the Germs</span>
+    <span class="st-chip" id="chip2">☆ 2 · Balanced Plate</span>
+    <span class="st-chip" id="chip3">☆ 3 · Healthy or Not?</span>
+  </div>
+
+  <div class="dock" id="dock" role="button" aria-label="Mia. Tap to hear her again.">
+    <div class="mascot-wrap" id="mascotWrap">
+      <img class="mascot" id="mascot" src="img/mia-face.jpg" alt="Mia, your science friend, smiling at you">
+      <div class="mouth" id="mouth" aria-hidden="true"></div>
+      <div class="thumb-pop" id="thumbPop" aria-hidden="true">👍</div>
+    </div>
+    <div class="bubble" id="speech">Hello! I am Mia!</div>
+  </div>
+
+  <div class="praise" id="praise" aria-live="polite"></div>
+
+  <div id="titleView">
+    <div class="story-wrap">
+      <img class="story-mia" id="storyMia" src="img/mia-stage.jpg" alt="Mia waving hello" draggable="false">
+      <div class="story-card">
+        <div class="own-badge">🧪 OUR OWN VIRTUAL LAB</div>
+        <div class="story-title">Mia's Healthy Day Lab</div>
+        <div class="story-sub">⭐ Wash, Eat, Rest, Grow Strong! ⭐</div>
+        <p class="intro-text">Wash the germs away, build a balanced plate, and pick the healthy things!</p>
+      </div>
+    </div>
+    <button class="play-btn" id="startBtn">▶ Start the Lab</button>
+  </div>
+
+  <div id="station1View" class="lab-view" hidden>
+    <div class="lab-card" id="card1">
+      <div class="station-head">Station 1 · Wash the Germs</div>
+      <div class="scene">
+        <svg id="s1Svg" viewBox="0 0 360 240" role="img" aria-label="Two hands with germs, under a tap">
+          <rect x="150" y="6" width="60" height="16" rx="7" fill="#9AA0A6"/>
+          <rect x="172" y="20" width="16" height="22" fill="#7FB5BA"/>
+          <path class="water-stream" id="s1Water" d="M180,44 L180,118" stroke="#5EA8DC" stroke-width="9" stroke-linecap="round"/>
+          <g>
+            <rect x="96" y="128" width="66" height="66" rx="26" fill="#FFD9A8" stroke="#D89A6A" stroke-width="3"/>
+            <rect x="104" y="100" width="11" height="38" rx="5" fill="#FFD9A8" stroke="#D89A6A" stroke-width="2.5"/>
+            <rect x="121" y="94" width="11" height="44" rx="5" fill="#FFD9A8" stroke="#D89A6A" stroke-width="2.5"/>
+            <rect x="138" y="98" width="11" height="40" rx="5" fill="#FFD9A8" stroke="#D89A6A" stroke-width="2.5"/>
+          </g>
+          <g>
+            <rect x="198" y="128" width="66" height="66" rx="26" fill="#FFD9A8" stroke="#D89A6A" stroke-width="3"/>
+            <rect x="211" y="98" width="11" height="40" rx="5" fill="#FFD9A8" stroke="#D89A6A" stroke-width="2.5"/>
+            <rect x="228" y="94" width="11" height="44" rx="5" fill="#FFD9A8" stroke="#D89A6A" stroke-width="2.5"/>
+            <rect x="245" y="100" width="11" height="38" rx="5" fill="#FFD9A8" stroke="#D89A6A" stroke-width="2.5"/>
+          </g>
+          <g fill="#7BC47F" stroke="#3E9B4F" stroke-width="2">
+            <circle class="germ-dot" id="germ1" cx="122" cy="150" r="9"/><circle class="germ-dot" id="germ2" cx="144" cy="172" r="8"/>
+            <circle class="germ-dot" id="germ3" cx="222" cy="146" r="9"/><circle class="germ-dot" id="germ4" cx="240" cy="170" r="8"/>
+            <circle class="germ-dot" id="germ5" cx="180" cy="188" r="8"/>
+          </g>
+          <g class="soap-bub" id="s1Bubbles" fill="#DFF0FA" stroke="#7FB5E8" stroke-width="2" opacity=".9">
+            <circle cx="110" cy="132" r="8"/><circle cx="150" cy="126" r="10"/><circle cx="205" cy="128" r="8"/>
+            <circle cx="248" cy="134" r="9"/><circle cx="180" cy="140" r="7"/><circle cx="132" cy="182" r="7"/><circle cx="228" cy="184" r="7"/>
+          </g>
+          <g fill="#FFC93C">
+            <path class="sparkle-star" d="M92,108 l3,8 8,3 -8,3 -3,8 -3,-8 -8,-3 8,-3 Z"/>
+            <path class="sparkle-star" d="M262,104 l3,8 8,3 -8,3 -3,8 -3,-8 -8,-3 8,-3 Z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="scene-cap" id="s1Cap">Yuck! Germs are on the hands. First — soap and water!</div>
+      <div class="big-row">
+        <button class="step-btn" id="s1SoapBtn">1. Soap &amp; Water 🧼</button>
+        <button class="act-btn" id="s1ScrubBtn" disabled>2. Scrub! 👐</button>
+      </div>
+      <div class="count-line" id="s1Count">Germs left: 5</div>
+      <div class="next-row" id="s1Next" hidden>
+        <button class="play-btn" id="s1NextBtn" style="margin:0">Next Station ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="station2View" class="lab-view" hidden>
+    <div class="lab-card" id="card2">
+      <div class="station-head">Station 2 · Balanced Plate</div>
+      <div class="scene-cap" id="s2Cap">Put each food on its mat!</div>
+      <div class="food-stage"><button class="food-big" id="s2Food" aria-label="Food to sort"></button></div>
+      <div class="mats">
+        <button class="mat-btn" id="matGrow"><span class="mat-name">🌱 Grow Foods</span><span class="mat-job">help me grow</span><span class="mat-foods" id="matGrowFoods"></span></button>
+        <button class="mat-btn" id="matEnergy"><span class="mat-name">⚡ Energy Foods</span><span class="mat-job">give me power</span><span class="mat-foods" id="matEnergyFoods"></span></button>
+        <button class="mat-btn" id="matProtect"><span class="mat-name">🛡️ Protect Foods</span><span class="mat-job">keep me safe</span><span class="mat-foods" id="matProtectFoods"></span></button>
+      </div>
+      <div class="next-row" id="s2Next" hidden>
+        <button class="play-btn" id="s2NextBtn" style="margin:0">Next Station ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="station3View" class="lab-view" hidden>
+    <div class="lab-card" id="card3">
+      <div class="station-head">Station 3 · Healthy or Not?</div>
+      <div class="count-line" id="s3Progress">Card 1 of 3</div>
+      <div class="habit-pic" id="s3Pic"></div>
+      <div class="habit-label" id="s3Label"></div>
+      <div class="big-row">
+        <button class="big-choice" id="s3Yes">Healthy! 👍</button>
+        <button class="big-choice" id="s3No">Not healthy 👎</button>
+      </div>
+      <div class="next-row" id="s3Next" hidden>
+        <button class="play-btn" id="s3NextBtn" style="margin:0">See My Stars ⭐</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="credit">✦ Prepared by: Zulfiqar Ali Sajid ✦</div>
+
+  <div class="overlay" id="endOverlay" hidden>
+    <div class="game-name">🧪 Lab Complete!</div>
+    <h1>Well done,<br>little scientist!</h1>
+    <img class="mascot-dance" src="img/mia-stage.jpg" alt="Mia dancing">
+    <div class="big-score" id="finalStars">You earned 3 ⭐ stars!</div>
+    <div class="moral-pill">⭐ I wash, eat well and rest to stay strong! ⭐</div>
+    <p>Mia is so proud of you!</p>
+    <button class="big-btn" id="againBtn">↻ Do the Lab Again</button>
+    <p><a href="c1.html" style="color:#9C4A08; font-weight:800;">↩ Back to the Chapter 1 game</a></p>
+    <p><a href="index.html" style="color:#9C4A08; font-weight:800;">⌂ More chapter games</a></p>
+  </div>
+
+<script>
+(function(){
+  "use strict";
+  var STAR = '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6 L63 37 L96 39 L70 60 L79 93 L50 74 L21 93 L30 60 L4 39 L37 37 Z" fill="#FFC93C" stroke="#E8A20C" stroke-width="5" stroke-linejoin="round"/></svg>';
+  var PRAISE = ["Great job! ⭐", "Well done! ⭐", "Super! ⭐", "Yes! That's right! ⭐", "Hooray! ⭐"];
+  function buzz(){ try{ if(navigator.vibrate){ navigator.vibrate(30); } }catch(e){} }
+  function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+  var actx = null, musicGain = null;
+  function audio(){
+    if(!actx){
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if(AC){ try{ actx = new AC(); }catch(e){ actx = null; } }
+      if(actx){ try{ musicGain = actx.createGain(); musicGain.gain.value = .9; musicGain.connect(actx.destination); }catch(e){ musicGain = null; } }
+    }
+    if(actx && actx.state === "suspended"){ actx.resume(); }
+    return actx;
+  }
+  function toneAt(freq, t, dur, type, vol, dest){
+    var ac = actx; if(!ac) return;
+    var o = ac.createOscillator(), g = ac.createGain();
+    o.type = type || "sine"; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol || 0.16, t + 0.03);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(dest || ac.destination);
+    o.start(t); o.stop(t + dur + 0.05);
+  }
+  function tone(freq, t0, dur, type, vol){ var ac = audio(); if(!ac) return; toneAt(freq, ac.currentTime + t0, dur, type, vol, ac.destination); }
+  function chimeRight(){ tone(523.25,0,.22); tone(659.25,.09,.22); tone(783.99,.18,.3); tone(1046.5,.27,.42); }
+  function chimeWrong(){ tone(294,0,.2,"triangle",.08); tone(233,.12,.26,"triangle",.08); }
+  function chimeWin(){ var n=[523.25,659.25,783.99,1046.5,783.99,1046.5,1318.5]; for(var i=0;i<n.length;i++){ tone(n[i], i*.13, .34); } }
+  function popSound(){ tone(500,0,.07,"triangle",.06); tone(760,.05,.09,"triangle",.05); }
+  var MEL_A = [659.25,783.99,880,783.99, 659.25,587.33,659.25,783.99, 880,1046.5,880,783.99, 659.25,783.99,659.25,587.33];
+  var MEL_B = [523.25,659.25,783.99,880, 783.99,659.25,587.33,659.25, 698.46,880,783.99,659.25, 587.33,659.25,0,0];
+  var BASSN = [130.81, 98.00, 110.00, 98.00];
+  var STEP_DUR = 0.24;
+  var musicOn = true, musicPlaying = false, musStep = 0, musNext = 0, musTimer = null;
+  function scheduleStep(s, t){
+    var mel = ((Math.floor(s/16) % 2 === 0) ? MEL_A : MEL_B)[s % 16];
+    var dest = musicGain || actx.destination;
+    if(mel > 0){ toneAt(mel, t, .34, "sine", .05, dest); toneAt(mel*2, t, .12, "sine", .012, dest); }
+    if(s % 8 === 0){ toneAt(BASSN[(s >> 3) % 4], t, .55, "triangle", .04, dest); }
+    if(s % 16 === 15){ toneAt(1567.98, t, .3, "sine", .014, dest); }
+  }
+  function musicScheduler(){ if(!actx) return; while(musNext < actx.currentTime + 0.20){ scheduleStep(musStep, musNext); musNext += STEP_DUR; musStep++; } }
+  function startMusic(){ if(!musicOn || musicPlaying) return; var ac = audio(); if(!ac) return; musStep = 0; musNext = ac.currentTime + 0.08; musTimer = setInterval(musicScheduler, 90); musicPlaying = true; }
+  function stopMusic(){ if(musTimer){ clearInterval(musTimer); musTimer = null; } musicPlaying = false; }
+  var hasSpeech = ("speechSynthesis" in window);
+  var voiceOn = hasSpeech, voiceCache = null;
+  function pickVoice(){
+    if(!hasSpeech) return null;
+    try{
+      var vs = window.speechSynthesis.getVoices();
+      if(vs && vs.length){ voiceCache = vs; }
+      var list = voiceCache || vs || [], best = null, bestScore = -1, i, v, name, lang, s;
+      for(i=0;i<list.length;i++){
+        v = list[i]; name = v.name || ""; lang = v.lang || "";
+        if(!/^en/i.test(lang)) continue;
+        s = 0;
+        if(/google us english/i.test(name)) s += 60;
+        if(/natural/i.test(name)) s += 45;
+        if(/neural/i.test(name)) s += 45;
+        if(/premium|enhanced/i.test(name)) s += 35;
+        if(/google/i.test(name)) s += 25;
+        if(/aria|jenny|zira|samantha|allison|ava|joanna|salli|emma|amy|bella|ana|michelle|katie|lucy|linda|susan|catherine|karen|sarah|jessica|ashley/i.test(name)) s += 30;
+        if(/female/i.test(name)) s += 25;
+        if(/guy|christopher|eric|roger|brian|james|john|david|mark|kevin|andrew|brandon/i.test(name)) s -= 15;
+        if(/en[-_]US/i.test(lang)) s += 15;
+        else if(/en[-_]GB/i.test(lang)) s += 10;
+        else s += 4;
+        if(v.localService === false) s += 2;
+        if(s > bestScore){ bestScore = s; best = v; }
+      }
+      return best;
+    }catch(e){}
+    return null;
+  }
+  if(hasSpeech){ try{ window.speechSynthesis.onvoiceschanged = function(){ pickVoice(); }; pickVoice(); }catch(e){} }
+  var speechUnlocked = false, pendingSay = null, pendingEmo = "instruct";
+  var EMO_PITCH = {story:1.03, question:1.10, praise:1.20, retry:0.95, instruct:1.05};
+  var sayQ = [], sayBusy = false, sayWdog = null, sayWaiters = [], saySeq = 0;
+  function sayEstimateMs(text){
+    var words = (text || "").split(/\s+/).filter(Boolean).length;
+    return Math.max(4000, Math.min(1800 + words * 620, 25000));
+  }
+  function speechActive(){ return !!(voiceOn && hasSpeech && speechUnlocked && (sayBusy || sayQ.length)); }
+  function releaseSayWaiters(){
+    if(sayBusy || sayQ.length) return;
+    var ws = sayWaiters; sayWaiters = [];
+    for(var i = 0; i < ws.length; i++){ try{ ws[i](); }catch(e){} }
+  }
+  function whenSpeechDone(cb){ if(!speechActive()){ cb(); return; } sayWaiters.push(cb); }
+  function afterMia(cb, minMs){
+    var t0 = Date.now();
+    whenSpeechDone(function(){
+      var wait = (minMs || 0) - (Date.now() - t0);
+      if(wait > 0){ setTimeout(cb, wait); } else { cb(); }
+    });
+  }
+  function pumpSpeech(){
+    if(sayBusy) return;
+    var item = sayQ.shift();
+    if(!item){ releaseSayWaiters(); return; }
+    sayBusy = true;
+    var gen = saySeq, finished = false;
+    function done(){
+      if(finished || gen !== saySeq) return;
+      finished = true;
+      if(sayWdog){ clearTimeout(sayWdog); sayWdog = null; }
+      sayBusy = false;
+      miaTalk(false);
+      pumpSpeech();
+    }
+    var u;
+    try{ u = new SpeechSynthesisUtterance(item.text); }
+    catch(e){ sayBusy = false; pumpSpeech(); return; }
+    u.lang = "en-US"; u.rate = 0.85; u.pitch = EMO_PITCH[item.emo] || 1.05;
+    var v = pickVoice(); if(v){ try{ u.voice = v; }catch(e){} }
+    u.onstart = function(){ if(gen === saySeq){ miaTalk(true, item.emo); } };
+    u.onend = done;
+    u.onerror = done;
+    u.onboundary = function(){ if(gen === saySeq){ miaPulse(); } };
+    sayWdog = setTimeout(done, sayEstimateMs(item.text));
+    try{ window.speechSynthesis.speak(u); }
+    catch(e){ done(); }
+  }
+  function speak(text, emo){
+    if(!voiceOn || !hasSpeech || !text) return;
+    emo = emo || "instruct";
+    if(!speechUnlocked){ pendingSay = text; pendingEmo = emo; return; }
+    var last = sayQ[sayQ.length - 1];
+    if(last && last.text === text && last.emo === emo) return;
+    sayQ.push({text:text, emo:emo});
+    pumpSpeech();
+  }
+  window.addEventListener("pointerdown", function(){
+    if(speechUnlocked) return;
+    speechUnlocked = true;
+    if(pendingSay){ var t = pendingSay, pe = pendingEmo; pendingSay = null; speak(t, pe); }
+  }, true);
+  function stopSpeak(){
+    saySeq++;
+    sayQ.length = 0;
+    if(sayWdog){ clearTimeout(sayWdog); sayWdog = null; }
+    sayBusy = false;
+    miaTalk(false);
+    if(hasSpeech){ try{ window.speechSynthesis.cancel(); }catch(e){} }
+    releaseSayWaiters();
+  }
+  var musicBtn = document.getElementById("musicBtn"), voiceBtn = document.getElementById("voiceBtn");
+  if(!hasSpeech){ voiceBtn.style.display = "none"; }
+  musicBtn.addEventListener("click", function(){
+    musicOn = !musicOn;
+    musicBtn.classList.toggle("off", !musicOn);
+    musicBtn.setAttribute("aria-pressed", musicOn ? "true" : "false");
+    if(musicOn){ startMusic(); } else { stopMusic(); }
+  });
+  voiceBtn.addEventListener("click", function(){
+    voiceOn = !voiceOn;
+    voiceBtn.classList.toggle("off", !voiceOn);
+    voiceBtn.setAttribute("aria-pressed", voiceOn ? "true" : "false");
+    if(!voiceOn){ stopSpeak(); }
+  });
+  (function petals(){
+    var box = document.getElementById("petals");
+    var colours = ["#CDEFF2","#FCF0E1","#FFE9A8","#BFE6EA"];
+    for(var i=0;i<9;i++){
+      var p = document.createElement("span");
+      p.className = "petal";
+      var w = 9 + Math.random()*8;
+      p.style.width = w + "px"; p.style.height = (w*1.35) + "px";
+      p.style.left = (Math.random()*96) + "vw";
+      p.style.background = colours[i % colours.length];
+      p.style.animationDuration = (11 + Math.random()*9) + "s";
+      p.style.animationDelay = (-Math.random()*16) + "s";
+      box.appendChild(p);
+    }
+  })();
+  var speechEl = document.getElementById("speech"),
+      praiseEl = document.getElementById("praise"),
+      scoreBox = document.getElementById("scoreBox"),
+      scoreCountEl = document.getElementById("scoreCount"),
+      mascotEl = document.getElementById("mascot"),
+      mascotWrap = document.getElementById("mascotWrap"),
+      thumbPopEl = document.getElementById("thumbPop"),
+      dockEl = document.getElementById("dock"),
+      titleView = document.getElementById("titleView"),
+      startBtn = document.getElementById("startBtn"),
+      endOverlay = document.getElementById("endOverlay"),
+      finalStarsEl = document.getElementById("finalStars");
+  var stars = 0, lastPrompt = "";
+  function updateStars(bumpIt){
+    scoreCountEl.textContent = stars;
+    if(bumpIt){ scoreBox.classList.remove("bump"); void scoreBox.offsetWidth; scoreBox.classList.add("bump"); }
+  }
+  function miaTalk(on, emo){
+    if(!mascotWrap) return;
+    if(emo){ mascotWrap.dataset.emotion = emo; }
+    mascotWrap.classList.toggle("speaking", !!on);
+    if(!on){ mascotWrap.classList.remove("pulse"); }
+  }
+  function miaPulse(){
+    if(!mascotWrap) return;
+    mascotWrap.classList.remove("pulse"); void mascotWrap.offsetWidth; mascotWrap.classList.add("pulse");
+    setTimeout(function(){ mascotWrap.classList.remove("pulse"); }, 280);
+  }
+  function thumbPopNow(){
+    if(!thumbPopEl) return;
+    thumbPopEl.classList.remove("pop"); void thumbPopEl.offsetWidth; thumbPopEl.classList.add("pop");
+  }
+  function pointMia(){
+    if(!mascotWrap) return;
+    mascotWrap.classList.add("pointing");
+    setTimeout(function(){ mascotWrap.classList.remove("pointing"); }, 1400);
+  }
+  function mascotReact(cls){
+    mascotEl.classList.remove("cheer","encourage"); void mascotEl.offsetWidth;
+    if(cls){ mascotEl.classList.add(cls); }
+    if(cls === "cheer"){ thumbPopNow(); }
+  }
+  function say(text, emo){
+    speechEl.textContent = text;
+    lastPrompt = text;
+    if(emo === false) return;
+    speak(text, (typeof emo === "string") ? emo : "instruct");
+  }
+  function praise(text){ praiseEl.textContent = text; praiseEl.classList.add("show"); }
+  function clearPraise(){ praiseEl.textContent = ""; praiseEl.classList.remove("show"); }
+  function burstIn(container, leftPct, topPct, n){
+    for(var i=0;i<(n||7);i++){
+      var s = document.createElement("div");
+      s.className = "burst-star"; s.innerHTML = STAR;
+      var size = 18 + Math.random()*18;
+      s.style.width = size+"px"; s.style.height = size+"px";
+      s.style.left = leftPct+"%"; s.style.top = topPct+"%";
+      s.style.setProperty("--dx", (Math.random()*260-130)+"px");
+      s.style.setProperty("--dy", (Math.random()*-160-30)+"px");
+      container.appendChild(s);
+      (function(el){ setTimeout(function(){ el.remove(); }, 900); })(s);
+    }
+  }
+  function celebrate(cardEl){
+    var p = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+    praise(p);
+    mascotReact("cheer");
+    chimeRight(); buzz();
+    speak(p, "praise");
+    if(cardEl){ burstIn(cardEl, 50, 30, 7); }
+  }
+  function onWrong(btn, retryLine){
+    if(btn){ btn.classList.remove("wrong"); void btn.offsetWidth; btn.classList.add("wrong"); }
+    mascotReact("encourage");
+    chimeWrong();
+    say(retryLine, "retry");
+  }
+  dockEl.addEventListener("click", function(){ if(lastPrompt){ speak(lastPrompt, "instruct"); } });
+  function rainCelebration(){
+    var colours = ["#E07B26","#FFC93C","#3E9B4F","#4A90C2","#B04FA0"];
+    for(var i=0;i<26;i++){
+      var c = document.createElement("div");
+      if(i % 3 === 0){ c.className = "fall-star"; c.innerHTML = STAR; c.style.width = "30px"; c.style.height = "30px"; }
+      else { c.className = "confetti"; c.style.width = "9px"; c.style.height = "15px"; c.style.background = colours[i % colours.length]; }
+      c.style.left = (Math.random()*96) + "vw";
+      c.style.animationDuration = (2.4 + Math.random()*2.2) + "s";
+      c.style.animationDelay = (Math.random()*0.9) + "s";
+      document.body.appendChild(c);
+      (function(el){ setTimeout(function(){ el.remove(); }, 6000); })(c);
+    }
+  }
+  function el(id){ return document.getElementById(id); }
+  function gateBtn(btn, minMs){
+    if(!btn) return;
+    btn.classList.add("waiting"); btn.disabled = true;
+    afterMia(function(){ btn.classList.remove("waiting"); btn.disabled = false; }, minMs);
+  }
+  var NST = 3;
+  var views = [null];
+  for(var _vi=1; _vi<=NST; _vi++){ views.push(el("station"+_vi+"View")); }
+  var doneFlags = {};
+  function showStation(n){
+    titleView.hidden = true;
+    for(var i=1;i<=NST;i++){
+      views[i].hidden = (i !== n);
+      el("chip"+i).classList.toggle("now", i === n && !doneFlags[i]);
+    }
+    clearPraise();
+    pointMia();
+    say(INTRO[n], "question");
+    window.scrollTo(0, 0);
+  }
+  function finishStation(n, resultLine, nextRow, nextBtn){
+    doneFlags[n] = true;
+    stars++; updateStars(true);
+    var chip = el("chip"+n);
+    chip.classList.remove("now"); chip.classList.add("done");
+    chip.textContent = "\u2B50 " + n + " \u00B7 " + NAMES[n];
+    say(resultLine, "story");
+    burstIn(el("card"+n), 50, 14, 9);
+    nextRow.hidden = false;
+    if(nextBtn){ gateBtn(nextBtn, 1100); }
+  }
+  function showFinish(){
+    for(var i=1;i<=NST;i++){ views[i].hidden = true; }
+    finalStarsEl.textContent = "You earned " + stars + " \u2B50 stars!";
+    endOverlay.hidden = false;
+    chimeWin(); rainCelebration(); buzz();
+    say(FINISH_LINE, "praise");
+    window.scrollTo(0, 0);
+  }
+
+  var NAMES = ["", "Wash the Germs", "Balanced Plate", "Healthy or Not?"];
+  var INTRO = {
+    1: "Germs are tiny. They can make us sick. Let us wash them away!",
+    2: "Our body needs three kinds of food. Put each food on its mat!",
+    3: "Look at each picture. Is it healthy, or not healthy?"
+  };
+  var FINISH_LINE = "You did it! You wash, you eat well, and you stay strong!";
+  var HELLO = "Hello! I am Mia! Welcome to my Healthy Day Lab! Let us stay strong together!";
+  /* Station 1: wash */
+  var soapDone = false, scrubbed = 0;
+  el("s1SoapBtn").addEventListener("click", function(){
+    if(soapDone) return; soapDone = true;
+    el("s1Water").classList.add("on"); el("s1Bubbles").classList.add("on");
+    el("s1SoapBtn").classList.add("done"); el("s1SoapBtn").disabled = true;
+    el("s1ScrubBtn").disabled = false;
+    popSound();
+    el("s1Cap").textContent = "Bubbles! Now tap Scrub to pop the germs!";
+    say("Bubbles! Now tap Scrub. Pop all five germs!", "instruct");
+  });
+  el("s1ScrubBtn").addEventListener("click", function(){
+    if(!soapDone || scrubbed >= 5) return;
+    scrubbed++;
+    var g = el("germ" + scrubbed); if(g){ g.classList.add("popped"); }
+    popSound(); buzz();
+    el("s1Count").textContent = "Germs left: " + (5 - scrubbed);
+    el("s1Cap").textContent = "Scrub, scrub! " + (5 - scrubbed) + " germs left!";
+    if(scrubbed >= 5){
+      el("s1ScrubBtn").disabled = true;
+      el("s1Svg").classList.add("sparkling");
+      el("s1Cap").textContent = "Sparkle, sparkle! Clean hands!";
+      celebrate(el("card1"));
+      finishStation(1, "Soap and water wash the germs away!", el("s1Next"), el("s1NextBtn"));
+    }
+  });
+  el("s1NextBtn").addEventListener("click", function(){ popSound(); showStation(2); showFood(0); });
+
+  /* Station 2: balanced plate */
+  var FOODS = [
+    { name: "Egg", mat: "Grow", svg: '<svg viewBox="0 0 100 70"><ellipse cx="50" cy="38" rx="30" ry="26" fill="#FFF6E8" stroke="#D9C6A5" stroke-width="3"/><circle cx="50" cy="40" r="13" fill="#F5A623" stroke="#D98A0B" stroke-width="3"/></svg>' },
+    { name: "Bread", mat: "Energy", svg: '<svg viewBox="0 0 100 70"><path d="M18,30 q-8,-16 12,-18 l40,0 q20,2 12,18 l-4,26 -56,0 Z" fill="#E9B96F" stroke="#B97F2E" stroke-width="3"/><path d="M34,26 q4,6 0,12 M50,24 q4,6 0,12 M66,26 q4,6 0,12" stroke="#B97F2E" stroke-width="3" fill="none"/></svg>' },
+    { name: "Apple", mat: "Protect", svg: '<svg viewBox="0 0 100 70"><circle cx="50" cy="42" r="24" fill="#E2483D" stroke="#B02A20" stroke-width="3"/><path d="M50,20 q2,-10 10,-12" stroke="#7A4A21" stroke-width="4" fill="none"/><path d="M52,12 q14,-8 18,2 q-10,8 -18,-2" fill="#3E9B4F"/></svg>' }
+  ];
+  var foodIdx = 0, foodBusy = false;
+  function showFood(i){
+    foodIdx = i; foodBusy = false;
+    el("s2Food").innerHTML = FOODS[i].svg + "<span>" + FOODS[i].name + "</span>";
+    el("s2Cap").textContent = FOODS[i].name + " — which mat does it live on?";
+    say(FOODS[i].name + ". Which mat does it live on?", "question");
+  }
+  function tapMat(mat, btn){
+    if(foodBusy || foodIdx >= FOODS.length) return;
+    if(FOODS[foodIdx].mat === mat){
+      foodBusy = true;
+      el("mat" + mat + "Foods").textContent = FOODS[foodIdx].name + " ✓";
+      btn.classList.add("got");
+      el("s2Food").classList.remove("fly"); void el("s2Food").offsetWidth; el("s2Food").classList.add("fly");
+      celebrate(el("card2"));
+      setTimeout(function(){
+        if(foodIdx + 1 < FOODS.length){ showFood(foodIdx + 1); }
+        else { finishStation(2, "Eggs help us grow. Bread gives energy. Apples protect us. A balanced plate has all three!", el("s2Next"), el("s2NextBtn")); }
+      }, 1000);
+    } else {
+      onWrong(btn, "That is not its mat. Think — what does this food do for us?");
+    }
+  }
+  el("matGrow").addEventListener("click", function(){ tapMat("Grow", el("matGrow")); });
+  el("matEnergy").addEventListener("click", function(){ tapMat("Energy", el("matEnergy")); });
+  el("matProtect").addEventListener("click", function(){ tapMat("Protect", el("matProtect")); });
+  el("s2NextBtn").addEventListener("click", function(){ popSound(); showStation(3); showCard(0); });
+
+  /* Station 3: healthy or not */
+  var CARDS = [
+    { label: "Brushing my teeth", healthy: true,
+      no: "Brushing keeps teeth strong and clean!", yes: "",
+      svg: '<svg viewBox="0 0 200 150"><rect x="40" y="96" width="120" height="16" rx="8" fill="#4A90C2" transform="rotate(-14 100 104)"/><g fill="#fff" stroke="#BCD4DE" stroke-width="2"><rect x="128" y="52" width="9" height="26" rx="3"/><rect x="140" y="50" width="9" height="26" rx="3"/><rect x="152" y="52" width="9" height="26" rx="3"/></g><rect x="124" y="72" width="42" height="12" rx="5" fill="#7FB5E8"/><circle cx="66" cy="52" r="26" fill="#FFD9A8" stroke="#D89A6A" stroke-width="3"/><path d="M50,60 q16,12 32,0" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg>' },
+    { label: "Eating sweets all day", healthy: false,
+      no: "", yes: "Sweets all day hurt our teeth and tummy!",
+      svg: '<svg viewBox="0 0 200 150"><g><circle cx="66" cy="70" r="24" fill="#E85D8A"/><path d="M42,70 l-16,-10 M42,70 l-16,10 M90,70 l16,-10 M90,70 l16,10" stroke="#B03A5E" stroke-width="5" stroke-linecap="round"/><path d="M50,52 q16,10 32,0 M50,88 q16,-10 32,0" stroke="#fff" stroke-width="4" fill="none" opacity=".7"/></g><g><circle cx="140" cy="86" r="19" fill="#7FB5E8"/><path d="M121,86 l-13,-8 M121,86 l-13,8 M159,86 l13,-8 M159,86 l13,8" stroke="#4A7396" stroke-width="4" stroke-linecap="round"/></g><circle cx="140" cy="34" r="13" fill="#FFC93C" stroke="#D98A0B" stroke-width="2.5"/></svg>' },
+    { label: "Sleeping early at night", healthy: true,
+      no: "Sleep helps our body grow strong!", yes: "",
+      svg: '<svg viewBox="0 0 200 150"><path d="M126,22 a34,34 0 1 0 14,58 a27,27 0 1 1 -14,-58" fill="#FFC93C" stroke="#D98A0B" stroke-width="3"/><path d="M52,44 l3,8 8,3 -8,3 -3,8 -3,-8 -8,-3 8,-3 Z" fill="#FFE9A8"/><path d="M76,86 l2.4,6.4 6.4,2.4 -6.4,2.4 -2.4,6.4 -2.4,-6.4 -6.4,-2.4 6.4,-2.4 Z" fill="#FFE9A8"/><rect x="30" y="112" width="140" height="14" rx="7" fill="#4A90C2"/><rect x="38" y="94" width="46" height="20" rx="9" fill="#fff" stroke="#BCD4DE" stroke-width="2.5"/></svg>' }
+  ];
+  var cardIdx = 0, cardBusy = false;
+  function showCard(i){
+    cardIdx = i; cardBusy = false;
+    el("s3Pic").innerHTML = CARDS[i].svg;
+    el("s3Label").textContent = CARDS[i].label;
+    el("s3Progress").textContent = "Card " + (i+1) + " of 3";
+    say(CARDS[i].label + ". Is it healthy, or not healthy?", "question");
+  }
+  function answerCard(tappedYes, btn){
+    if(cardBusy) return;
+    var c = CARDS[cardIdx];
+    if(tappedYes === c.healthy){
+      cardBusy = true; btn.classList.add("right"); celebrate(el("card3"));
+      setTimeout(function(){
+        btn.classList.remove("right");
+        if(cardIdx + 1 < CARDS.length){ showCard(cardIdx + 1); }
+        else { el("s3Yes").disabled = true; el("s3No").disabled = true;
+          finishStation(3, "Brush your teeth, eat good food, and sleep early. That is a healthy day!", el("s3Next"), el("s3NextBtn")); }
+      }, 1100);
+    } else { onWrong(btn, tappedYes ? c.yes : c.no); }
+  }
+  el("s3Yes").addEventListener("click", function(){ answerCard(true, el("s3Yes")); });
+  el("s3No").addEventListener("click", function(){ answerCard(false, el("s3No")); });
+  el("s3NextBtn").addEventListener("click", function(){ popSound(); showFinish(); });
+  el("againBtn").addEventListener("click", function(){ location.reload(); });
+  startBtn.addEventListener("click", function(){ audio(); startMusic(); showStation(1); });
+  say(HELLO, "story");
+})();
+
+</script>
+</body>
+</html>
